@@ -1,0 +1,115 @@
+paper: arXiv:2611.20888 Driving the Style
+paper_pipeline:
+- human mocap (authors; not public)
+- GMR retarget to robot
+- per-frame joint + body references; pelvis anchor
+paper_protocol:
+  train_generalization: random_walk only
+  held_out_eval:
+  - backward
+  - side
+  - slow
+  in_distribution_motions:
+  - random_walk
+  - backward
+  - side
+  - slow
+  - jog
+  eval: drive with held-out clip velocity profiles; measure vs reference joints
+wbot_disclaimer: Original Agile Robots mocap is not released. Clips below follow the
+  same semantic roles using existing WBOT AMP locomotion data. backward/slow are documented
+  approximations.
+motions:
+- role: random_walk
+  file: src/assets/motions/wbot_20dof/vel_style/random_walk_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/walk.npz
+  kind: direct
+  notes: Paper main train clip. WBOT walk.npz covers multi-direction planar vel.
+  stats:
+    duration_s: 54.1
+    vx_min: -0.7492692289071351
+    vx_max: 0.904648299206415
+    vx_mean: 0.18525183321582225
+    frac_vx_neg: 0.24731977818853973
+    vy_abs_mean: 0.06416719374836925
+    wz_abs_mean: 0.4062868356704712
+- role: side
+  file: src/assets/motions/wbot_20dof/vel_style/side_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/side_l.npz
+  kind: direct
+  notes: Paper held-out / in-dist side walking.
+  stats:
+    duration_s: 20.46
+    vx_min: -0.08640750012568862
+    vx_max: 0.1407582928119914
+    vx_mean: 0.01876949529598595
+    frac_vx_neg: 0.033235581622678395
+    vy_abs_mean: 0.16595432556129383
+    wz_abs_mean: 0.1573256254196167
+- role: jog
+  file: src/assets/motions/wbot_20dof/vel_style/jog_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/run.npz
+  kind: direct
+  notes: Paper in-dist jog (Table III/V). Not a Table IV held-out.
+  stats:
+    duration_s: 21.28
+    vx_min: -0.01154479143780438
+    vx_max: 1.1456837253134267
+    vx_mean: 0.750861174811706
+    frac_vx_neg: 0.0
+    vy_abs_mean: 0.11270047713175203
+    wz_abs_mean: 0.8731964826583862
+- role: backward
+  file: src/assets/motions/wbot_20dof/vel_style/backward_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/walk_straight_a.npz
+  kind: time_reverse
+  notes: 'APPROXIMATION: paper recorded a dedicated backward clip. We time-reverse
+    a straight walk and rebuild velocities (common biped hack).'
+  stats:
+    duration_s: 4.76
+    vx_min: -0.8391908175224785
+    vx_max: -0.15565745965998512
+    vx_mean: -0.5484132665596958
+    frac_vx_neg: 1.0
+    vy_abs_mean: 0.06218678890539633
+    wz_abs_mean: 0.19389189779758453
+- role: slow
+  file: src/assets/motions/wbot_20dof/vel_style/slow_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/walk_straight_b.npz
+  kind: time_stretch
+  notes: 'APPROXIMATION: paper recorded a dedicated slow walk. We 2× time-stretch
+    a straight walk and rebuild velocities.'
+  stats:
+    duration_s: 9.24
+    vx_min: 0.09353082162752877
+    vx_max: 0.44154398825763613
+    vx_mean: 0.2826692090838824
+    frac_vx_neg: 0.0
+    vy_abs_mean: 0.03323711576451135
+    wz_abs_mean: 0.1307830661535263
+- role: random_walk_mirror
+  file: src/assets/motions/wbot_20dof/vel_style/random_walk_mirror_tracking.npz
+  source_amp: src/assets/amp_motions/wbot_20dof/walk_run_amp/walk_mirror.npz
+  kind: direct
+  notes: Paper ablation B1 left-right mirrored random walk.
+  stats:
+    duration_s: 54.1
+    vx_min: -0.7492692289071351
+    vx_max: 0.904648299206415
+    vx_mean: 0.1852518332110205
+    frac_vx_neg: 0.24731977818853973
+    vy_abs_mean: 0.06416719373960493
+    wz_abs_mean: 0.4062868356704712
+- role: random_walk_smoothed
+  file: src/assets/motions/wbot_20dof/vel_style/random_walk_smoothed_tracking.npz
+  source_amp: src/assets/motions/wbot_20dof/vel_style/random_walk_tracking.npz
+  kind: savgol_base
+  notes: Paper IV-F smoothed base (window=100); joints unchanged.
+  stats:
+    duration_s: 54.1
+    vx_min: -0.5332497556944719
+    vx_max: 0.6933772321438759
+    vx_mean: 0.18438455755146502
+    frac_vx_neg: 0.25730129390018486
+    vy_abs_mean: 0.029177658970995578
+    wz_abs_mean: 0.3012905716896057

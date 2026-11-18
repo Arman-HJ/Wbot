@@ -1,0 +1,47 @@
+{
+  "pid": 129315,
+  "launch_time": "2026-09-29T11:14:23.550859",
+  "task": "Wbot-20Dof-Tracking-RollToProne",
+  "num_envs": 1024,
+  "max_iterations": 5001,
+  "save_interval": 250,
+  "device": "local CUDA 0",
+  "log": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/launch_right_foot_fixed_video.log",
+  "script": "scripts/train_tracking_roll_wbot_20dof.sh",
+  "motion_sha256": "9b6496000d9549de9544cfe90278a5ed875e8e544b5edc77f497e1defb316e0a",
+  "model_sha256": "135ca81a85c1fab4c63a852375c2889ca8749ba66a38a4d34f2b81bb928453e7",
+  "status": "completed",
+  "verified_iteration": 5000,
+  "previous_launches": [
+    {
+      "pid": 127945,
+      "launch_time": "2026-09-29T11:05:02.021591",
+      "task": "Wbot-20Dof-Tracking-RollToProne",
+      "num_envs": 1024,
+      "max_iterations": 5001,
+      "save_interval": 250,
+      "device": "local CUDA 0",
+      "log": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/launch_right_foot_fixed.log",
+      "script": "scripts/train_tracking_roll_wbot_20dof.sh",
+      "motion_sha256": "9b6496000d9549de9544cfe90278a5ed875e8e544b5edc77f497e1defb316e0a",
+      "model_sha256": "135ca81a85c1fab4c63a852375c2889ca8749ba66a38a4d34f2b81bb928453e7",
+      "run_dir": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/2026-09-29_11-05-05_right_foot_fixed",
+      "status": "running",
+      "verified_iteration": 74
+    }
+  ],
+  "resume_checkpoint": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/2026-09-29_11-05-05_right_foot_fixed/model_1250.pt",
+  "resumed_iteration": 1250,
+  "video": true,
+  "video_interval_steps": 2000,
+  "video_length_frames": 150,
+  "video_duration_s": 3.0,
+  "run_dir": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/2026-09-29_11-14-28_right_foot_fixed_video",
+  "video_check": {
+    "first_video": "/home/songhat/code_workspace/unitree_rl_mjlab/logs/rsl_rl/wbot_20dof_roll_to_prone_tracking/2026-09-29_11-14-28_right_foot_fixed_video/videos/train/rl-video-step-0.mp4",
+    "frames": 150,
+    "fps": 50.0,
+    "width": 1280,
+    "height": 720
+  }
+}

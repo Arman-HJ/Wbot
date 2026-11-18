@@ -1,0 +1,5 @@
+{
+  "note": "Local checkpoint 2026-09-29_11-14-28_right_foot_fixed_video was removed in logs cleanup; retrain or point CHECKPOINT_FILE elsewhere.",
+  "checkpoint": null,
+  "log": null
+}

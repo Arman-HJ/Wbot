@@ -1,0 +1,9 @@
+motions:
+# Train / local: .../amp_motions/pnd_adam_sp/engineai_locomotion
+# Equal clip sampling probability (weight=1.0 each).
+  - file: "locomotion_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "locomotion_pnd_adam_sp_sym.npz"
+    weight: 1.0
+  - file: "stand_b_walk_transition_woman_pnd_adam_sp.npz"
+    weight: 1.0

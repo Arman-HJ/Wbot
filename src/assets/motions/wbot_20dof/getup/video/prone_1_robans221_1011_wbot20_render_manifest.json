@@ -1,0 +1,13 @@
+{
+  "video": "/home/songhat/code_workspace/unitree_rl_mjlab/src/assets/motions/wbot/roban_wbot20_no_state_estimation/video/prone_1_robans221_1011_wbot20_replay.mp4",
+  "montage": "/home/songhat/code_workspace/unitree_rl_mjlab/src/assets/motions/wbot/roban_wbot20_no_state_estimation/video/prone_1_robans221_1011_wbot20_montage.jpg",
+  "frames": 851,
+  "fps": 50.0,
+  "duration_s": 17.02,
+  "resolution": [
+    1280,
+    720
+  ],
+  "kinematic_only": true,
+  "label": "no_state_estimation / 851f / kinematic"
+}

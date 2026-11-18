@@ -1,0 +1,36 @@
+# TinyMDM prior for adam_sp disc obs (ang_vel_b + joint_pos + joint_vel, H=10).
+# Smoke / small-data defaults — raise num_iterations for production priors.
+model_name: "tiny_mdm"
+arch_name: "DiT"
+
+T: 50
+loss_type: "l1"
+estimate_mode: "epsilon"
+noise_schedule_mode: "squaredcos_cap_v2"
+
+num_layers: 2
+num_attention_heads: 4
+
+model_ema: true
+model_ema_decay: 0.995
+model_ema_steps: 10
+model_ema_update_after: 5000
+
+normalizer_std_clip: 0.2
+
+device: "cuda"
+batch_size: 256
+lr: 0.0002
+num_iterations: 100000
+num_samples_stat: 5000
+output_iter: 2000
+log_iter: 200
+grad_clip_norm: 1.0
+
+# SDS-style eval on training windows (same formula as SMP RL reward).
+eval_sds_batch_size: 4096
+eval_sds_seed: 42
+sds_loss_scale: 6.0
+diffusion_steps: [22, 15, 8]
+
+env_config: "env_config.yaml"

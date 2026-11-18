@@ -1,0 +1,5 @@
+<mujoco model="z1_legs_only">
+  <!-- Training legs+waist model is built in Python (see z1_legs_spec.py):
+       load z1.xml, set Z1_LOCOMOTION_KEYFRAME, bake arms/hands/neck, keep waist. -->
+  <include file="z1.xml" />
+</mujoco>

@@ -1,0 +1,14 @@
+motions:
+# GVHMR kick clips retargeted to wbot 20DoF (MJCF joint order).
+  - file: "kick3_wbot_20dof_mjcf_order_stand2s.npz"
+    weight: 1.0
+  - file: "kick4_policy_rollout_model_3000_hold2s.npz"
+    weight: 1.0
+  - file: "kick5_wbot_20dof.npz"
+    weight: 1.0
+  - file: "kick6_wbot_20dof.npz"
+    weight: 1.0
+  - file: "kick7_wbot_20dof.npz"
+    weight: 1.0
+  - file: "kick8_wbot_20dof.npz"
+    weight: 1.0

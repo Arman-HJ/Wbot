@@ -1,0 +1,84 @@
+*.egg-info
+.idea
+outputs
+logs
+wandb
+MUJOCO_LOG.TXT
+tea_debug.log
+nohup.out
+deploy/robots/go2/build
+deploy/robots/g1/build
+deploy/robots/h1_2/build
+deploy/robots/g1_23dof/build
+deploy/robots/r1/build
+deploy/robots/a2/build
+src/assets/robots/agibot_x2/x2_urdf
+src/assets/motions/g1/dance1_subject2.npz
+simulate/build
+
+# Local analysis / backup trees (keep only README tracked)
+artifacts/**
+!artifacts/README.md
+model_backups/**
+!model_backups/README.md
+patent/.venv/
+patent/._*
+
+# Large artifacts / caches
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.npy
+*.npz
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.bin
+*.db
+*.sqlite
+*.sqlite3
+
+# Keep DroidUp-aligned WBOT AMP locomotion clips trackable.
+!dataset/wbot_20dof/amp/*.npz
+
+# Model files / checkpoints
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.engine
+*.trt
+*.so
+*.so.*
+
+# Runtime artifacts
+train_*.log
+deploy/deploy_mujoco/action_logs/
+deploy/deploy_x2_real_4/cpp/thirdparty/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Modeling / 3D assets
+*.stl
+*.STL
+*.obj
+*.fbx
+*.dae
+*.usd
+*.usda
+*.usdc
+*.glb
+*.gltf
+*.ply
+*.blend
+doc/gif/
+# Runtime pid / tensorboard events
+*.pid
+events.out.tfevents.*

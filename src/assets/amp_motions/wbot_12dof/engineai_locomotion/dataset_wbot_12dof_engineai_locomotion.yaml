@@ -1,0 +1,7 @@
+motions:
+# Train / local: unitree_rl_mjlab/src/assets/amp_motions/wbot_12dof/engineai_locomotion
+# Include mirrored clip so the discriminator sees left/right-symmetric gait.
+  - file: "locomotion_wbot_12dof.npz"
+    weight: 1.0
+  - file: "locomotion_wbot_12dof_sym.npz"
+    weight: 1.0

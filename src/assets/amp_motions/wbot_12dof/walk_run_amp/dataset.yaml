@@ -1,0 +1,26 @@
+# WBOT 12DoF leg-only slices of walk_run_amp (from wbot_20dof pack).
+motions:
+  - file: walk_moving.npz
+    label: walk
+    weight: 1.0
+  - file: run.npz
+    label: run
+    weight: 1.0
+  - file: run_mirror.npz
+    label: run
+    weight: 1.0
+  - file: turn_l.npz
+    label: turn
+    weight: 1.0
+  - file: turn_r.npz
+    label: turn
+    weight: 1.0
+  - file: side_l.npz
+    label: side
+    weight: 1.0
+  - file: side_r.npz
+    label: side
+    weight: 1.0
+  - file: stand.npz
+    label: stand
+    weight: 1.0

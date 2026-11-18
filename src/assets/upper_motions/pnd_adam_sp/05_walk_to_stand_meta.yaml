@@ -1,0 +1,28 @@
+slug: 05_walk_to_stand
+fps: 30.0
+num_frames: 171
+duration_s: 5.7
+units: rad absolute (not residual)
+upper14_joint_names:
+- left_shoulder_pitch_joint
+- left_shoulder_roll_joint
+- left_shoulder_yaw_joint
+- left_elbow_joint
+- left_wrist_yaw_joint
+- left_wrist_pitch_joint
+- left_wrist_roll_joint
+- right_shoulder_pitch_joint
+- right_shoulder_roll_joint
+- right_shoulder_yaw_joint
+- right_elbow_joint
+- right_wrist_yaw_joint
+- right_wrist_pitch_joint
+- right_wrist_roll_joint
+target_robot: pnd_adam_sp
+sign_flips: {}
+clipped_frames: {}
+source_pack: /home/songhat/code_workspace/rl/FALCON/humanoidverse/data/deploy/x2/motions_upper
+source_key: 0-ACCAD_Female1Walking_c3d_B2 - walk to stand_poses
+source_upper14: 05_walk_to_stand_upper14.npy
+mapping: FALCON X2 upper14 -> Adam SP upper14 by joint name. Same YPR wrist order;
+  hinge axes match; no sign flips.

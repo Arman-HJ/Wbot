@@ -1,0 +1,14 @@
+motions:
+# Adam SP locomotion for unitree_rl_mjlab AMP v2 / HIL.
+# Weights mirror MimicKit dataset_humanoid_locomotion.yaml (run/walk = 3.0).
+# Train: --amp-datasets "walk-run_pnd_adam_sp:3.0,run-walk_pnd_adam_sp:3.0,..."
+  - file: "walk-run_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "run-walk_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "stand-walk_pnd_adam_sp.npz"
+    weight: 0.5
+  - file: "walk-stand_pnd_adam_sp.npz"
+    weight: 0.5
+  - file: "run_man_pnd_adam_sp.npz"
+    weight: 1.0

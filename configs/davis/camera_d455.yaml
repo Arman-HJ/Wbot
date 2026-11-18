@@ -1,0 +1,67 @@
+# RealSense D455 — sim camera for DAVIS on wbot.
+#
+# Official datasheet (Intel RealSense D400 Series, Oct 2024):
+#   Depth FOV HD 16:9: 87° H × 58° V (±3°)
+#   Default depth profile (SDK): 848×480
+#   Depth distortion coeffs on D455: all zero
+# Intrinsics fx/fy/cx/cy are NOT a single published factory constant — Intel
+# requires reading the unit with `rs-enumerate-devices -c`. Below we store
+# FOV-derived nominals for sim + common resolutions; replace with onboard
+# calibration before real deployment.
+
+camera:
+  model: "Intel RealSense D455"
+  parent_body: "torso_link"
+  # Same mount as football_jax/configs/wbot20dof.yaml.
+  # football_jax quat_xyzw is Z-fwd/Y-up; MuJoCo looks -Z → convert
+  # R_mj = R_fj @ diag(-1, 1, -1) before using quat_wxyz in CameraSensorCfg.
+  pos_xyz_m: [0.06, 0.0, 0.21]
+  quat_xyzw_fj: [0.630037, 0.630037, 0.321020, 0.321020]  # football_jax / ~36° pitch down
+  quat_wxyz: [-0.630037, -0.321020, 0.321020, 0.630037]  # MuJoCo camera (converted)
+  depth_fov_deg_hv: [87.0, 58.0]  # datasheet HD
+  fovy_deg: 58.0                  # MuJoCo / mjlab CameraSensorCfg
+  render_resolution_wh: [168, 94] # 16:9 → HFOV≈87° with fovy=58
+  policy_crop_wh: [168, 80]
+  depth_range_m: [0.3, 5.0]
+  normalize: "2D/5.0 - 1"
+  invalid_fill: 0.0
+  stream_hz: 15
+  depth_scale_m: 0.001  # datasheet / SDK default for 400-series
+
+  # Nominal intrinsics from official FOV: f = (res/2) / tan(FOV/2).
+  # Distortion [0,0,0,0,0] per Intel for D455 depth.
+  intrinsics_nominal:
+    depth_848x480:  # SDK default depth profile
+      width: 848
+      height: 480
+      fx: 446.79   # 424 / tan(43.5°)
+      fy: 432.55   # 240 / tan(29°)
+      cx: 424.0
+      cy: 240.0
+      coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+    depth_1280x720:  # HD depth
+      width: 1280
+      height: 720
+      fx: 674.39   # 640 / tan(43.5°)
+      fy: 648.82   # 360 / tan(29°)
+      cx: 640.0
+      cy: 360.0
+      coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+    sim_render_168x94:  # what mjlab renders before crop
+      width: 168
+      height: 94
+      fx: 88.51    # 84 / tan(43.5°)
+      fy: 84.79    # 47 / tan(29°)
+      cx: 84.0
+      cy: 47.0
+      coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+
+  # Fill from `rs-enumerate-devices -c` on the physical unit before real deploy.
+  intrinsics_onboard:
+    note: "replace with this robot's Depth stream calibration"
+    width: null
+    height: null
+    fx: null
+    fy: null
+    cx: null
+    cy: null

@@ -1,0 +1,14 @@
+{
+  "video": "/home/songhat/code_workspace/unitree_rl_mjlab/src/assets/motions/wbot/roll_to_prone_20260929/video/roll_to_prone_replay.mp4",
+  "montage": "/home/songhat/code_workspace/unitree_rl_mjlab/src/assets/motions/wbot/roll_to_prone_20260929/analysis/video_preview_fixed/roll_to_prone_montage.jpg",
+  "frames": 131,
+  "fps": 50.0,
+  "duration_s": 2.62,
+  "resolution": [
+    1280,
+    720
+  ],
+  "kinematic_only": false,
+  "label": "SUPINE TO PRONE / RIGHT FOOT FIXED",
+  "prone_hold_s": 0.5
+}

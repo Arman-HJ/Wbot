@@ -1,0 +1,80 @@
+robot: WBOT_20DOF_legs
+joint_order:
+- left_hip_pitch_joint
+- left_hip_roll_joint
+- left_hip_yaw_joint
+- left_knee_joint
+- left_ankle_pitch_joint
+- left_ankle_roll_joint
+- right_hip_pitch_joint
+- right_hip_roll_joint
+- right_hip_yaw_joint
+- right_knee_joint
+- right_ankle_pitch_joint
+- right_ankle_roll_joint
+delay_sim_steps: 2.5162124633789062
+joints:
+  left_hip_pitch_joint:
+    armature: 0.0189
+    viscous_friction: 0.304
+    friction: 0.183
+    encoder_bias_rad: 0.004521
+  left_hip_roll_joint:
+    armature: 0.0823
+    viscous_friction: 0.038
+    friction: 0.295
+    encoder_bias_rad: -0.023598
+  left_hip_yaw_joint:
+    armature: 0.0385
+    viscous_friction: 0.031
+    friction: 0.155
+    encoder_bias_rad: -0.083781
+  left_knee_joint:
+    armature: 0.0695
+    viscous_friction: 0.002
+    friction: 0.218
+    encoder_bias_rad: 0.021764
+  left_ankle_pitch_joint:
+    armature: 0.0269
+    viscous_friction: 0.013
+    friction: 0.326
+    encoder_bias_rad: -0.07778
+  left_ankle_roll_joint:
+    armature: 0.0077
+    viscous_friction: 0.001
+    friction: 0.096
+    encoder_bias_rad: 0.000283
+  right_hip_pitch_joint:
+    armature: 0.0173
+    viscous_friction: 0.283
+    friction: 0.206
+    encoder_bias_rad: 0.036495
+  right_hip_roll_joint:
+    armature: 0.0788
+    viscous_friction: 0.025
+    friction: 0.236
+    encoder_bias_rad: 0.050972
+  right_hip_yaw_joint:
+    armature: 0.0381
+    viscous_friction: 0.021
+    friction: 0.17
+    encoder_bias_rad: 0.086337
+  right_knee_joint:
+    armature: 0.0717
+    viscous_friction: 0.002
+    friction: 0.26
+    encoder_bias_rad: -0.064509
+  right_ankle_pitch_joint:
+    armature: 0.0289
+    viscous_friction: 0.141
+    friction: 0.268
+    encoder_bias_rad: 0.087921
+  right_ankle_roll_joint:
+    armature: 0.0077
+    viscous_friction: 0.002
+    friction: 0.091
+    encoder_bias_rad: 0.036995
+fit_meta:
+  source: real_collect_f0p1_6_r1r2r3_equal_envs
+  pace_run: wbot_20dof/legs/26_11_02_15-13-48-071276
+  mean_checkpoint: mean_140.pt

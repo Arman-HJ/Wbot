@@ -1,0 +1,15 @@
+---
+description: Default RL train launch — background, TensorBoard, videos (no need to ask)
+alwaysApply: true
+---
+
+# Train defaults (always)
+
+Whenever starting or restarting RL training, do **all** of the following without waiting for the user to ask:
+
+1. **Background**: `nohup setsid` (fully detached; not tied to the Cursor terminal). Console stdout → `logs/rsl_rl/_console/`.
+2. **Video**: pass `--video True --video-interval 2000 --video-length 200` (unless the user explicitly disables video).
+3. **TensorBoard**: after the run dir exists, start (or reuse) `tensorboard` on that experiment’s `logs/rsl_rl/<experiment>/` with an absolute `--logdir`. Prefer a free port in 6006–6010. Reply with the URL (e.g. `http://127.0.0.1:6007`).
+4. **Report**: PID, log path, run dir, TensorBoard URL, and confirm video is enabled.
+
+Do not kill other users’ GPU jobs (e.g. `hrj`). Only stop/restart the user’s own matching train process when replacing a run.

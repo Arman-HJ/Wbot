@@ -1,0 +1,65 @@
+<mujoco model="cp01 scene">
+  <include file="wbot_12dof.xml"/>
+
+  <statistic center="1.0 2 2.0" extent="0.6"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.1 0.1 0.1" specular="0.9 0.9 0.9"/>
+    <!-- <rgba haze="0.15 0.25 0.35 1"/> -->
+    <global azimuth="-140" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <!-- <texture type="skybox" builtin="flat" rgb1="0 0 0" rgb2="0 0 0" width="512" height="3072"/> -->
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="3000" height="3000"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+
+
+  <worldbody>
+    <light pos="1 0 3.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    <body name="stairs_solid">
+      <!-- <geom name="stair_slope1" type="box" pos="3 0 0.0" size="1.0 5 0.1" rgba="0.6 0.1 0.1 1"/>
+      <geom name="stair_slope2" type="box" pos="3.2 0 0.1" size="0.8 5 0.1" rgba="0.6 0.1 0.1 1"/>
+      <geom name="stair_slope3" type="box" pos="3.4 0 0.2" size="0.6 5 0.1" rgba="0.6 0.1 0.1 1"/>
+      <geom name="stair_slope4" type="box" pos="3.6 0 0.3" size="0.4 5 0.1" rgba="0.6 0.1 0.1 1"/>      
+      <geom name="stair_slope5" type="box" pos="3.8 0 0.4" size="0.2 5 0.1" rgba="0.6 0.1 0.1 1"/> -->
+      
+
+      <!-- <geom name="line1" type="capsule" size="0.1" fromto="6. -2.5 0.025     6.0 2.5 0.025"/> -->
+    </body>  
+  </worldbody>
+  
+  <!-- <actuator>
+    <position name="left_hip_roll_joint" joint="left_hip_roll_joint" kp="40.18" ctrlrange="-3.14 3.14"/>
+    <position name="left_hip_yaw_joint" joint="left_hip_yaw_joint" kp="40.18" ctrlrange="-3.14 3.14"/>
+    <position name="left_hip_pitch_joint" joint="left_hip_pitch_joint" kp="99.1" ctrlrange="-3.14 3.14"/>
+    <position name="left_knee_joint" joint="left_knee_joint" kp="99.1" ctrlrange="-3.14 3.14"/> 
+    <position name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" kp="22.18" ctrlrange="-3.14 3.14"/>    
+    <position name="left_ankle_roll_joint" joint="left_ankle_roll_joint" kp="14.25" ctrlrange="-3.14 3.14"/>
+    <position name="right_hip_roll_joint" joint="right_hip_roll_joint" kp="40.18" ctrlrange="-3.14 3.14"/>
+    <position name="right_hip_yaw_joint" joint="right_hip_yaw_joint" kp="40.18" ctrlrange="-3.14 3.14"/>
+    <position name="right_hip_pitch_joint" joint="right_hip_pitch_joint" kp="99.1" ctrlrange="-3.14 3.14"/>
+    <position name="right_knee_joint" joint="right_knee_joint" kp="99.1" ctrlrange="-3.14 3.14"/>
+    <position name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" kp="22.18" ctrlrange="-3.14 3.14"/>    
+    <position name="right_ankle_roll_joint" joint="right_ankle_roll_joint" kp="14.25" ctrlrange="-3.14 3.14"/>
+  </actuator> -->
+
+  <actuator>
+    <position name="left_hip_pitch_joint" joint="left_hip_pitch_joint" kp="150" kv="4" ctrlrange="-1.57 1.57"/>
+    <position name="left_hip_roll_joint" joint="left_hip_roll_joint" kp="150" kv="4" ctrlrange="-0.3 1.57"/>
+    <position name="left_hip_yaw_joint" joint="left_hip_yaw_joint" kp="100" kv="3" ctrlrange="-1.57 1.57"/>  
+    <position name="left_knee_joint" joint="left_knee_joint" kp="150" kv="4" ctrlrange="0 2.3"/> 
+    <position name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" kp="100" kv="3" ctrlrange="-0.87 0.87"/>    
+    <position name="left_ankle_roll_joint" joint="left_ankle_roll_joint" kp="60" kv="2" ctrlrange="-0.23 0.23"/>
+    <position name="right_hip_pitch_joint" joint="right_hip_pitch_joint" kp="150" kv="4" ctrlrange="-1.57 1.57"/>
+    <position name="right_hip_roll_joint" joint="right_hip_roll_joint" kp="100" kv="4" ctrlrange="-1.57 0.3"/>
+    <position name="right_hip_yaw_joint" joint="right_hip_yaw_joint" kp="90" kv="3" ctrlrange="-1.57 1.57"/>
+    <position name="right_knee_joint" joint="right_knee_joint" kp="150" kv="4" ctrlrange="0 2.3"/>
+    <position name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" kp="100" kv="3" ctrlrange="-0.87 0.87"/>    
+    <position name="right_ankle_roll_joint" joint="right_ankle_roll_joint" kp="60" kv="2" ctrlrange="-0.23 0.23"/>
+  </actuator>
+
+</mujoco>

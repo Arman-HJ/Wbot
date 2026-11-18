@@ -1,0 +1,81 @@
+robot: PND_AdamPro_legs_12dof
+joint_order:
+- hipPitch_Left
+- hipRoll_Left
+- hipYaw_Left
+- kneePitch_Left
+- anklePitch_Left
+- ankleRoll_Left
+- hipPitch_Right
+- hipRoll_Right
+- hipYaw_Right
+- kneePitch_Right
+- anklePitch_Right
+- ankleRoll_Right
+delay_sim_steps: 0.2442842721939087
+joints:
+  hipPitch_Left:
+    armature: 0.1374
+    viscous_friction: 1.7709
+    friction: 0.2614
+    encoder_bias_rad: 0.072
+  hipRoll_Left:
+    armature: 0.0314
+    viscous_friction: 0.7719
+    friction: 0.2081
+    encoder_bias_rad: 0.0908
+  hipYaw_Left:
+    armature: 0.0789
+    viscous_friction: 3.2242
+    friction: 0.2728
+    encoder_bias_rad: 0.0724
+  kneePitch_Left:
+    armature: 0.1307
+    viscous_friction: 0.9136
+    friction: 0.2646
+    encoder_bias_rad: 0.0131
+  anklePitch_Left:
+    armature: 0.102
+    viscous_friction: 0.7046
+    friction: 0.4365
+    encoder_bias_rad: -0.0429
+  ankleRoll_Left:
+    armature: 0.0375
+    viscous_friction: 0.2079
+    friction: 0.1487
+    encoder_bias_rad: 0.0279
+  hipPitch_Right:
+    armature: 0.1453
+    viscous_friction: 1.8263
+    friction: 0.2533
+    encoder_bias_rad: 0.0787
+  hipRoll_Right:
+    armature: 0.0326
+    viscous_friction: 1.1546
+    friction: 0.2238
+    encoder_bias_rad: -0.0925
+  hipYaw_Right:
+    armature: 0.1072
+    viscous_friction: 4.8297
+    friction: 0.2653
+    encoder_bias_rad: -0.0705
+  kneePitch_Right:
+    armature: 0.1282
+    viscous_friction: 1.0587
+    friction: 0.2507
+    encoder_bias_rad: 0.0423
+  anklePitch_Right:
+    armature: 0.0985
+    viscous_friction: 0.8051
+    friction: 0.4425
+    encoder_bias_rad: -0.0329
+  ankleRoll_Right:
+    armature: 0.0341
+    viscous_friction: 0.1823
+    friction: 0.1582
+    encoder_bias_rad: -0.0233
+fit_meta:
+  source: real
+  pace_run: pnd_legs_real/26_06_12_16-19-21
+  mean_checkpoint: mean_070.pt
+  training_alignment: logs/rsl_rl/pnd_adam_pro_velocity_v3_legs/2026-06-09_14-31-26/params/deployment_alignment.yaml

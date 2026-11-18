@@ -1,0 +1,15 @@
+# Small-scale sanity: policy can approach ball / swing leg.
+# Overrides are documented; primary knobs live in Python env/rl cfg.
+# Launch: bash scripts/train_davis_shoot_wbot_20dof.sh --sanity
+
+task_id: Davis-Shoot-Wbot-20DOF-Sanity
+num_envs: 64
+episode_length_s: 8.0
+max_iterations: 200
+save_interval: 50
+enable_amp: true
+amp_motions: src/assets/amp_motions/wbot_20dof/soccer_standard
+notes:
+  - "22-DoF (20 body + 2 neck); ZED2i head camera; active-vision rewards; AMP on."
+  - "Expect: head tracks ball, aux geo loss decreases, AMP style reward logs, no NaNs."
+  - "Not expecting goals yet."

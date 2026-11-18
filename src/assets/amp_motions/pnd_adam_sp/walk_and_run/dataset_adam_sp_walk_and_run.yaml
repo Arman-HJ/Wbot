@@ -1,0 +1,63 @@
+motions:
+# Adam SP AMP clips adapted from legged_lab G1 walk_and_run (30 clips).
+# Train: --amp-data-path=src/assets/amp_motions/pnd_adam_sp/walk_and_run
+  - file: "B10_-__Walk_turn_left_45_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B11_-__Walk_turn_left_135_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B13_-__Walk_turn_right_90_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B14_-__Walk_turn_right_45_t2_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B15_-__Walk_turn_around_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B22_-__side_step_left_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B23_-__side_step_right_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B4_-_Stand_to_Walk_backwards_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "B9_-__Walk_turn_left_90_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C11_-_run_turn_left_90_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C12_-_run_turn_left_45_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C13_-_run_turn_left_135_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C14_-_run_turn_right_90_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C15_-_run_turn_right_45_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C16_-_run_turn_right_135_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C17_-_run_change_direction_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C1_-_stand_to_run_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C3_-_run_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C4_-_run_to_walk_a_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C5_-_walk_to_run_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C6_-_stand_to_run_backwards_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C8_-_run_backwards_to_stand_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "C9_-_run_backwards_turn_run_forward_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B10_-_Walk_turn_left_45_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B13_-_Walk_turn_right_45_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B15_-_Walk_turn_around_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B16_-_Walk_turn_change_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B22_-_Side_step_left_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B23_-_Side_step_right_stageii_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "Walk_B4_-_Stand_to_Walk_Back_stageii_pnd_adam_sp.npz"
+    weight: 1.0

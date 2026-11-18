@@ -1,0 +1,96 @@
+# X2 AMP-v2 Flat 真机部署（腿+腰+双臂；头非策略关节 follow_measured）
+# 任务: AgiBot-X2-AMP-v2-Flat
+# 观测: history=1, dim=98
+#   base_ang_vel(3) + projected_gravity(3) + command(3) + phase(2)
+#   + joint_pos(29) + joint_vel(29) + actions(29)
+# 默认姿态: 手臂 0° 打直（HOME_KEYFRAME_SMP）
+# Run: 2026-09-03_18-38-38_x2_amp_vel_wgan_20k_0505_nopose_nocurr_ang05_arms0 (model_7000)
+#
+# 用法（机上 deploy_real）:
+#   python3 run_real.py --config configs/x2/amp_v2_flat_real.yaml
+# 或:
+#   ./run.sh   # 若已把 run.sh 指到本配置
+
+robot_backend: x2
+
+auto_latest_log: true
+checkpoint_log: 2026-09-03_18-38-38_x2_amp_vel_wgan_20k_0505_nopose_nocurr_ang05_arms0
+checkpoints_dir: ../../checkpoints/x2_amp_v2
+policy_path: "../../checkpoints/policy.onnx"
+deployment_alignment: "../../checkpoints/params/deployment_alignment.yaml"
+
+# 训练 actor 用 pelvis IMU（robot/imu_ang_vel）；真机 torso 话题 ≈ pelvis
+imu:
+  topic: /aima/hal/imu/torso/state
+  projected_gravity_mode: pelvis
+
+debug:
+  enable: false
+  action_scale: 0.05
+  action_rate_stop: true
+
+disable_gc: true
+
+control_hz: 50.0
+policy_hz: 50.0
+
+pos_limit_soft: 0.9
+clip_target_pos: true
+clip_actions: null
+
+zero_torque_on_fall: false
+fall_min_neg_gz: 0.9
+
+action_rate_stop:
+  enable: true
+  max_l2: 8.0
+  warmup_policy_steps: 3
+
+estop_relax:
+  enable: true
+  duration_s: 2.0
+  kd_scale: 1.0
+
+shutdown:
+  enable: true
+  damp_duration_s: 1.0
+  vel_damp_kd_scale: 1.0
+  zero_torque: false
+
+cmd_init: [0.0, 0.0, 0.0]
+
+log_inference_time: true
+log_inference_every: 100
+infer_time_window: 200
+
+save_action_curves: true
+action_log_duration_s: 2.0
+
+init_duration: 2.5
+
+keyboard_vel:
+  enable: true
+  backend: ros_joy
+  joy_topic: /joy
+  vx_mag: 0.1
+  wz_mag: 0.1
+  vx_limit: 1.0
+  wz_limit: 1.0
+  vy_limit: 3.0
+  # Cross=1 解除急停/回等待；○/B=2 急停；方块/X=0 等待→走路
+  ps_estop_button: 2
+  ps_mode_wait_button: 1
+  ps_mode_run_button: 0
+  ps_axis_vx: 1
+  ps_axis_vy: 0
+  ps_axis_wz: 2
+  ps_vx_sign: -1.0
+  ps_vy_sign: -1.0
+  ps_wz_sign: -1.0
+  ps_deadzone: 0.1
+
+# 策略含腰/臂；头等非策略关节跟实测
+upper_body:
+  non_policy_mode: follow_measured
+  non_policy_kp: 14.0
+  non_policy_kd: 2.0

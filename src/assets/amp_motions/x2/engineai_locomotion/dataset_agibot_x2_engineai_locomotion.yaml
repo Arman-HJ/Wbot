@@ -1,0 +1,7 @@
+motions:
+# Train / local: /home/songhat/code_workspace/rl/unitree_rl_mjlab/src/assets/amp_motions/x2/engineai_locomotion
+# Include mirrored clip so the discriminator sees left/right-symmetric gait.
+  - file: "locomotion_agibot_x2.npz"
+    weight: 1.0
+  - file: "locomotion_agibot_x2_sym.npz"
+    weight: 1.0

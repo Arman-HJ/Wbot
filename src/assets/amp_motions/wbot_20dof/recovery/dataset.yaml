@@ -1,0 +1,3 @@
+motions:
+  - file: fallAndGetUp1_subject1_wbot_20dof.npz
+    weight: 1.0

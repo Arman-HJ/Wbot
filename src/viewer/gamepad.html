@@ -1,0 +1,69 @@
+<!doctype html><html lang="zh"><meta charset="utf-8">
+<style>
+*{box-sizing:border-box}body{margin:0;padding:10px;background:#18202c;color:#e6edf7;font:13px system-ui}select,button{background:#29364a;color:inherit;border:1px solid #526078;border-radius:6px;padding:7px;cursor:pointer}select{width:100%;margin-bottom:8px}.row{display:flex;gap:6px;align-items:center;margin:7px 0}.row button{flex:1}#enable.on{background:#126f58}#status{font-size:12px;min-height:34px;color:#b9cbe3}#pads{display:flex;justify-content:space-around;gap:12px;margin:10px 0}.pad{width:115px;height:115px;border-radius:50%;border:1px solid #65728b;background:radial-gradient(circle,#314257,#202c3e);position:relative;touch-action:none;user-select:none}.pad::after{content:'+';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#7790ac;font-size:24px}.knob{position:absolute;width:32px;height:32px;left:calc(50% - 16px);top:calc(50% - 16px);border-radius:50%;background:#67b9ee;z-index:1;pointer-events:none}.label{text-align:center;font-size:12px;margin-top:5px}.hint{font-size:11px;color:#acbcd0;line-height:1.5}#values{font:12px monospace;color:#91d8be;white-space:pre}#stop{background:#823f48}
+</style>
+<select id="source"><option value="virtual">网页摇杆（鼠标 / 触屏）</option><option value="physical">USB / 蓝牙手柄</option></select>
+<div class="row"><button id="enable">启用控制</button><button id="stop">停止 / X</button></div>
+<div id="status">连接控制通道…</div>
+<div id="pads"><div><div id="left" class="pad"><div class="knob"></div></div><div class="label">左摇杆：前后 / 横移</div></div><div><div id="right" class="pad"><div class="knob"></div></div><div class="label">右摇杆：转向</div></div></div>
+<div id="values">vx 0.00   vy 0.00   wz 0.00</div>
+<div class="row"><button data-action="walk">Walk / A</button><button data-action="kick">Kick / B</button><button data-action="ball">放球 / Y</button></div>
+<div class="row"><button data-action="roll">Roll / LB（翻身→起立）</button></div>
+<div class="row"><button data-action="getup">Get Up / RB（原地起立）</button></div>
+<div class="hint">启用后接管速度；关闭后使用原滑条。摇杆松开归零。<br>实体手柄：左杆移动，右杆左右转向；需标准 Xbox / PS 映射。<br>实体手柄请用 localhost 或 HTTPS 打开，并按一下手柄按键。</div>
+<script>
+const CONTROL_UUID = __CONTROL_UUID__;
+const $=id=>document.getElementById(id);
+let ws, enabled=false, seq=0, axes=[0,0,0], previous=[], padIndex=null;
+const taps=new Set();
+// Only strings and short maps are needed for GuiUpdateMessage. JSON contains
+// the input payload; this small encoder avoids any external JS/CDN dependency.
+function pack(value){
+ const out=[];const encoder=new TextEncoder();
+ function write(x){if(typeof x==='string'){const b=encoder.encode(x),n=b.length;if(n<32)out.push(0xa0+n);else if(n<256)out.push(0xd9,n);else out.push(0xda,n>>8,n&255);out.push(...b);}else{const entries=Object.entries(x);out.push(0x80+entries.length);for(const [k,v] of entries){write(k);write(v);}}}
+ write(value);return new Uint8Array(out);
+}
+function send(buttons=[]){if(ws?.readyState!==WebSocket.OPEN)return;ws.send(pack({type:'GuiUpdateMessage',uuid:CONTROL_UUID,updates:{value:JSON.stringify({seq:seq++,enabled,axes,buttons})}}));}
+function resetAxes(){axes=[0,0,0];document.querySelectorAll('.knob').forEach(k=>k.style.transform='');}
+function disable(){enabled=false;resetAxes();taps.clear();$('enable').textContent='启用控制';$('enable').classList.remove('on');$('values').textContent='vx 0.00   vy 0.00   wz 0.00';$('status').textContent='已关闭控制，速度归零';send();}
+function connect(){
+ const parentUrl=new URL(parent.location.href);
+ let url=parentUrl.searchParams.get('websocket')||parentUrl.searchParams.get('server');
+ if(!url){parentUrl.protocol=parentUrl.protocol==='https:'?'wss:':'ws:';parentUrl.hash='';url=parentUrl.href;}
+ ws=new WebSocket(url,[__VISER_PROTOCOL__]);ws.binaryType='arraybuffer';
+ ws.onopen=()=>{$('status').textContent='已连接，点击启用控制';};
+ ws.onclose=()=>{disable();$('status').textContent='连接中断，速度已归零；正在重连…';setTimeout(connect,1500);};
+ ws.onerror=()=>{$('status').textContent='控制通道连接失败';};
+}
+$('enable').onclick=()=>{if(enabled){disable();return;}if(ws?.readyState!==WebSocket.OPEN)return;enabled=true;previous=[];padIndex=null;$('enable').textContent='关闭控制';$('enable').classList.add('on');};
+$('source').onchange=()=>{disable();$('status').textContent='已切换输入方式，请重新启用';};
+function pulse(action){if(!enabled)return;taps.add(action);send([...taps]);}
+$('stop').onclick=()=>{if(enabled){resetAxes();pulse('stop');disable();}};
+document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>pulse(b.dataset.action));
+function setupPad(id){const pad=$(id),knob=pad.querySelector('.knob');let pointer=null;
+ function move(e){if(pointer!==e.pointerId)return;const r=pad.getBoundingClientRect(),radius=r.width/2;let x=(e.clientX-r.left-radius)/(radius-16),y=(e.clientY-r.top-radius)/(radius-16);const m=Math.max(1,Math.hypot(x,y));x/=m;y/=m;knob.style.transform=`translate(${x*(radius-16)}px,${y*(radius-16)}px)`;if(id==='left'){axes[0]=-y;axes[1]=-x;}else axes[2]=-x;}
+ pad.onpointerdown=e=>{if(!enabled||$('source').value!=='virtual'||pointer!==null)return;pointer=e.pointerId;pad.setPointerCapture(pointer);move(e);};pad.onpointermove=move;
+ function release(e){if(e.pointerId!==pointer)return;pointer=null;knob.style.transform='';if(id==='left'){axes[0]=0;axes[1]=0;}else axes[2]=0;send();}
+ pad.onpointerup=release;pad.onpointercancel=release;pad.onlostpointercapture=release;
+}
+setupPad('left');setupPad('right');
+const dead=x=>Math.abs(x)<0.12?0:Math.sign(x)*(Math.abs(x)-0.12)/0.88;
+function physical(){
+ if(!window.isSecureContext||!navigator.getGamepads){disable();$('status').textContent='实体手柄需要 localhost / HTTPS；可切换到网页摇杆。';return [];}
+ let pads;try{pads=Array.from(navigator.getGamepads());}catch(e){disable();$('status').textContent='浏览器未允许读取手柄，请使用网页摇杆。';return [];}
+ const pad=padIndex===null?pads.find(p=>p&&p.connected):pads[padIndex];
+ if(!pad?.connected){resetAxes();if(padIndex!==null){disable();$('status').textContent='手柄已断开，速度归零';}else $('status').textContent='等待手柄：连接后按一下任意按键';return [];}
+ if(pad.mapping!=='standard'){disable();$('status').textContent='此手柄没有标准映射，请使用网页摇杆。';return [];}
+ padIndex=pad.index;axes=[-dead(pad.axes[1]||0),-dead(pad.axes[0]||0),-dead(pad.axes[2]||0)];
+ const pressed=[0,1,2,3,5,4].map(i=>!!pad.buttons[i]?.pressed);
+ const names=['walk','kick','stop','ball','getup','roll'];const edges=names.filter((_,i)=>pressed[i]&&!previous[i]);previous=pressed;
+ $('status').textContent='已连接：'+pad.id;
+ if(edges.includes('stop')){resetAxes();send(['stop']);disable();return [];}
+ return edges;
+}
+setInterval(()=>{if(!enabled)return;let buttons=[...taps];taps.clear();if($('source').value==='physical')buttons.push(...physical());else $('status').textContent='网页摇杆控制中；松开归零';if(!enabled)return;send(buttons);const [f,l,y]=axes;$('values').textContent=`vx ${(f*(f>=0?1.2:0.8)).toFixed(2)}   vy ${(l*.5).toFixed(2)}   wz ${(y*1.5).toFixed(2)}`;},50);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)disable();});
+window.addEventListener('pagehide',disable);
+parent.addEventListener('blur',disable);
+connect();
+</script></html>

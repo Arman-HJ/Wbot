@@ -1,0 +1,32 @@
+{
+  "prefix_s": 1.6,
+  "blend_s": 0.5,
+  "success": true,
+  "joint_rmse_rad": 0.02914366782862543,
+  "max_root_speed_last1s_m_s": 6.343457203833505e-05,
+  "max_root_angular_speed_last1s_rad_s": 0.000293873549325511,
+  "final_front_z": -0.9992744635644353,
+  "final_up_z": -0.022276511628594564,
+  "duration_s": 5.1000000000000005,
+  "reference": "/home/songhat/code_workspace/unitree_rl_mjlab/src/assets/motions/wbot/roban_wbot20_no_state_estimation/prone_1_robans221_1011_wbot20.npz",
+  "reference_sha256": "a38745df2baea0ae68363bdf4cab0c0fadf13d14a25f889066da59fad3db9232",
+  "reference_frame": 0,
+  "heading_alignment_rad": -1.4117642596083726,
+  "final_joint_rmse_rad": 0.02914366782862543,
+  "final_root_height_m": 0.04458735159578906,
+  "final_root_speed_m_s": 2.1585698388382777e-05,
+  "final_root_angular_speed_rad_s": 0.00010577959186511516,
+  "final_joint_speed_max_rad_s": 0.0007906790756306653,
+  "controller": "bounded position servos only; no trained actor invoked",
+  "initializations": 1,
+  "later_state_assignments": 0,
+  "root_external_forces": false,
+  "revision": "right_foot_twist_corrected",
+  "right_foot_correction": {
+    "yaw_compensation": 1.0,
+    "ankle_roll_scale": 0.25,
+    "source_candidate": "experiments/right_foot_fix/yaw1_ankle0.25",
+    "final_replay_heading_peak_deg": 5.241810543970832,
+    "final_replay_ankle_roll_peak_deg": 5.280426163761355
+  }
+}

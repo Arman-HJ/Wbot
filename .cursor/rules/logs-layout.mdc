@@ -1,0 +1,13 @@
+---
+description: Keep experiment logs only under logs/rsl_rl (no ad-hoc train_/play_ dirs)
+alwaysApply: true
+---
+
+# Logs layout
+
+- **Only** put training artifacts under `logs/rsl_rl/<experiment_name>/<run>/` (checkpoints, `train.log`, TB events, `params/`, videos).
+- **Do not** create `logs/train_*`, `logs/play_*`, or other ad-hoc sibling dirs under `logs/`.
+- For nohup / TensorBoard / play console stdout, use `logs/rsl_rl/_console/` (mkdir if needed), e.g.:
+  - `logs/rsl_rl/_console/train_h2_YYYYMMDD_HHMMSS.log`
+  - `logs/rsl_rl/_console/tb_h2_6008.log`
+- Prefer the framework’s own run `train.log` when it already exists; avoid duplicate console dumps unless debugging.

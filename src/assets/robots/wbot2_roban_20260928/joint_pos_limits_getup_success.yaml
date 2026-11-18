@@ -1,0 +1,288 @@
+source:
+  task_id: Wbot-20Dof-Tracking-Getup
+  run: logs/rsl_rl/wbot_20dof_getup_tracking/2026-09-28_15-38-09_wbot_20dof_roban_no_state_estimation
+  checkpoint: logs/rsl_rl/wbot_20dof_getup_tracking/2026-09-28_15-38-09_wbot_20dof_roban_no_state_estimation/model_30000.pt
+  robot: wbot2_roban_20260928 (MJCF range)
+  soft_joint_pos_limit_factor: 0.9
+  note: soft = mid ± factor*(half_range); reward/termination soft limits use this.
+joints:
+- name: left_hip_pitch_joint
+  hard_rad:
+  - -3.14
+  - 3.14
+  soft_rad:
+  - -2.826
+  - 2.826
+  hard_deg:
+  - -179.91
+  - 179.91
+  soft_deg:
+  - -161.92
+  - 161.92
+  default_joint_pos: -0.1
+- name: left_hip_roll_joint
+  hard_rad:
+  - -1.57
+  - 1.57
+  soft_rad:
+  - -1.413
+  - 1.413
+  hard_deg:
+  - -89.95
+  - 89.95
+  soft_deg:
+  - -80.96
+  - 80.96
+  default_joint_pos: 0.02
+- name: left_hip_yaw_joint
+  hard_rad:
+  - -1.57
+  - 1.57
+  soft_rad:
+  - -1.413
+  - 1.413
+  hard_deg:
+  - -89.95
+  - 89.95
+  soft_deg:
+  - -80.96
+  - 80.96
+  default_joint_pos: 0.0
+- name: left_knee_joint
+  hard_rad:
+  - 0.0
+  - 2.0
+  soft_rad:
+  - 0.1
+  - 1.9
+  hard_deg:
+  - 0.0
+  - 114.59
+  soft_deg:
+  - 5.73
+  - 108.86
+  default_joint_pos: 0.2
+- name: left_ankle_pitch_joint
+  hard_rad:
+  - -0.87
+  - 0.87
+  soft_rad:
+  - -0.783
+  - 0.783
+  hard_deg:
+  - -49.85
+  - 49.85
+  soft_deg:
+  - -44.86
+  - 44.86
+  default_joint_pos: -0.1
+- name: left_ankle_roll_joint
+  hard_rad:
+  - -0.5
+  - 0.5
+  soft_rad:
+  - -0.45
+  - 0.45
+  hard_deg:
+  - -28.65
+  - 28.65
+  soft_deg:
+  - -25.78
+  - 25.78
+  default_joint_pos: -0.02
+- name: right_hip_pitch_joint
+  hard_rad:
+  - -3.14
+  - 3.14
+  soft_rad:
+  - -2.826
+  - 2.826
+  hard_deg:
+  - -179.91
+  - 179.91
+  soft_deg:
+  - -161.92
+  - 161.92
+  default_joint_pos: -0.1
+- name: right_hip_roll_joint
+  hard_rad:
+  - -1.57
+  - 1.57
+  soft_rad:
+  - -1.413
+  - 1.413
+  hard_deg:
+  - -89.95
+  - 89.95
+  soft_deg:
+  - -80.96
+  - 80.96
+  default_joint_pos: -0.02
+- name: right_hip_yaw_joint
+  hard_rad:
+  - -1.57
+  - 1.57
+  soft_rad:
+  - -1.413
+  - 1.413
+  hard_deg:
+  - -89.95
+  - 89.95
+  soft_deg:
+  - -80.96
+  - 80.96
+  default_joint_pos: 0.0
+- name: right_knee_joint
+  hard_rad:
+  - 0.0
+  - 2.0
+  soft_rad:
+  - 0.1
+  - 1.9
+  hard_deg:
+  - 0.0
+  - 114.59
+  soft_deg:
+  - 5.73
+  - 108.86
+  default_joint_pos: 0.2
+- name: right_ankle_pitch_joint
+  hard_rad:
+  - -0.87
+  - 0.87
+  soft_rad:
+  - -0.783
+  - 0.783
+  hard_deg:
+  - -49.85
+  - 49.85
+  soft_deg:
+  - -44.86
+  - 44.86
+  default_joint_pos: -0.1
+- name: right_ankle_roll_joint
+  hard_rad:
+  - -0.5
+  - 0.5
+  soft_rad:
+  - -0.45
+  - 0.45
+  hard_deg:
+  - -28.65
+  - 28.65
+  soft_deg:
+  - -25.78
+  - 25.78
+  default_joint_pos: 0.02
+- name: left_shoulder_pitch_joint
+  hard_rad:
+  - -3.0892
+  - 2.6704
+  soft_rad:
+  - -2.80122
+  - 2.38242
+  hard_deg:
+  - -177.0
+  - 153.0
+  soft_deg:
+  - -160.5
+  - 136.5
+  default_joint_pos: -0.087
+- name: left_shoulder_roll_joint
+  hard_rad:
+  - -1.5882
+  - 2.2515
+  soft_rad:
+  - -1.396215
+  - 2.059515
+  hard_deg:
+  - -91.0
+  - 129.0
+  soft_deg:
+  - -80.0
+  - 118.0
+  default_joint_pos: 0.297
+- name: left_shoulder_yaw_joint
+  hard_rad:
+  - -2.618
+  - 2.618
+  soft_rad:
+  - -2.3562
+  - 2.3562
+  hard_deg:
+  - -150.0
+  - 150.0
+  soft_deg:
+  - -135.0
+  - 135.0
+  default_joint_pos: -0.442
+- name: left_elbow_joint
+  hard_rad:
+  - -1.0472
+  - 2.0944
+  soft_rad:
+  - -0.89012
+  - 1.93732
+  hard_deg:
+  - -60.0
+  - 120.0
+  soft_deg:
+  - -51.0
+  - 111.0
+  default_joint_pos: 1.097
+- name: right_shoulder_pitch_joint
+  hard_rad:
+  - -3.0892
+  - 2.6704
+  soft_rad:
+  - -2.80122
+  - 2.38242
+  hard_deg:
+  - -177.0
+  - 153.0
+  soft_deg:
+  - -160.5
+  - 136.5
+  default_joint_pos: -0.087
+- name: right_shoulder_roll_joint
+  hard_rad:
+  - -2.2515
+  - 1.5882
+  soft_rad:
+  - -2.059515
+  - 1.396215
+  hard_deg:
+  - -129.0
+  - 91.0
+  soft_deg:
+  - -118.0
+  - 80.0
+  default_joint_pos: -0.297
+- name: right_shoulder_yaw_joint
+  hard_rad:
+  - -2.618
+  - 2.618
+  soft_rad:
+  - -2.3562
+  - 2.3562
+  hard_deg:
+  - -150.0
+  - 150.0
+  soft_deg:
+  - -135.0
+  - 135.0
+  default_joint_pos: 0.442
+- name: right_elbow_joint
+  hard_rad:
+  - -1.0472
+  - 2.0944
+  soft_rad:
+  - -0.89012
+  - 1.93732
+  hard_deg:
+  - -60.0
+  - 120.0
+  soft_deg:
+  - -51.0
+  - 111.0
+  default_joint_pos: 1.097

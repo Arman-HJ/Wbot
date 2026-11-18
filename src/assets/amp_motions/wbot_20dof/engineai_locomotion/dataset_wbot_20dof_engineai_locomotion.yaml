@@ -1,0 +1,6 @@
+motions:
+# EngineAI locomotion retargeted to wbot 20DoF (+ left-right mirrored clip).
+  - file: "locomotion_wbot_20dof.npz"
+    weight: 1.0
+  - file: "locomotion_wbot_20dof_sym.npz"
+    weight: 1.0

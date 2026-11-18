@@ -1,0 +1,361 @@
+meta:
+  kind: deployment_alignment
+  generated_at_utc: '2026-10-31T05:07:20.758022+00:00'
+  framework: mjlab
+  task_id: AMP-Walk-Run-Wbot-20DOF
+  pace_legs:
+    run: 26_11_02_15-13-48-071276
+    mean: mean_140.pt
+    updated_frictionloss: true
+joints:
+- name: left_hip_pitch_joint
+  controlled: true
+  default_joint_pos: -0.088
+  joint_pos_limits:
+  - -2.8
+  - 1.57
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.183
+- name: left_hip_roll_joint
+  controlled: true
+  default_joint_pos: 0.042
+  joint_pos_limits:
+  - -1.57
+  - 1.57
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.295
+- name: left_hip_yaw_joint
+  controlled: true
+  default_joint_pos: -0.007
+  joint_pos_limits:
+  - -1.57
+  - 1.57
+  kp: 15.3
+  kd: 1.826
+  effort_limit: 28
+  frictionloss: 0.155
+- name: left_knee_joint
+  controlled: true
+  default_joint_pos: 0.175
+  joint_pos_limits:
+  - 0
+  - 2
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.218
+- name: left_ankle_pitch_joint
+  controlled: true
+  default_joint_pos: -0.101
+  joint_pos_limits:
+  - -0.87
+  - 0.87
+  kp: 15.3
+  kd: 1.826
+  effort_limit: 28
+  frictionloss: 0.326
+- name: left_ankle_roll_joint
+  controlled: true
+  default_joint_pos: -0.052
+  joint_pos_limits:
+  - -0.5
+  - 0.5
+  kp: 3.542
+  kd: 0.423
+  effort_limit: 8
+  frictionloss: 0.096
+- name: right_hip_pitch_joint
+  controlled: true
+  default_joint_pos: -0.088
+  joint_pos_limits:
+  - -2.8
+  - 1.57
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.206
+- name: right_hip_roll_joint
+  controlled: true
+  default_joint_pos: -0.042
+  joint_pos_limits:
+  - -1.57
+  - 1.57
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.236
+- name: right_hip_yaw_joint
+  controlled: true
+  default_joint_pos: 0.007
+  joint_pos_limits:
+  - -1.57
+  - 1.57
+  kp: 15.3
+  kd: 1.826
+  effort_limit: 28
+  frictionloss: 0.17
+- name: right_knee_joint
+  controlled: true
+  default_joint_pos: 0.175
+  joint_pos_limits:
+  - 0
+  - 2
+  kp: 20.832
+  kd: 2.487
+  effort_limit: 65
+  frictionloss: 0.26
+- name: right_ankle_pitch_joint
+  controlled: true
+  default_joint_pos: -0.101
+  joint_pos_limits:
+  - -0.87
+  - 0.87
+  kp: 15.3
+  kd: 1.826
+  effort_limit: 28
+  frictionloss: 0.268
+- name: right_ankle_roll_joint
+  controlled: true
+  default_joint_pos: 0.052
+  joint_pos_limits:
+  - -0.5
+  - 0.5
+  kp: 3.542
+  kd: 0.423
+  effort_limit: 8
+  frictionloss: 0.091
+- name: left_shoulder_pitch_joint
+  controlled: true
+  default_joint_pos: -0.039
+  joint_pos_limits:
+  - -3.089
+  - 2.67
+  kp: 3.948
+  kd: 0.251
+  effort_limit: 10
+  frictionloss: 0.069
+- name: left_shoulder_roll_joint
+  controlled: true
+  default_joint_pos: 0.232
+  joint_pos_limits:
+  - -1.588
+  - 2.251
+  kp: 3.948
+  kd: 0.251
+  effort_limit: 10
+  frictionloss: 0.085
+- name: left_shoulder_yaw_joint
+  controlled: true
+  default_joint_pos: -1.004
+  joint_pos_limits:
+  - -2.618
+  - 2.618
+  kp: 2.763
+  kd: 0.176
+  effort_limit: 4
+  frictionloss: 0.016
+- name: left_elbow_joint
+  controlled: true
+  default_joint_pos: 1.2
+  joint_pos_limits:
+  - -0.87
+  - 1.57
+  kp: 2.763
+  kd: 0.176
+  effort_limit: 4
+  frictionloss: 0.005
+- name: right_shoulder_pitch_joint
+  controlled: true
+  default_joint_pos: -0.039
+  joint_pos_limits:
+  - -3.089
+  - 2.67
+  kp: 3.948
+  kd: 0.251
+  effort_limit: 10
+  frictionloss: 0.062
+- name: right_shoulder_roll_joint
+  controlled: true
+  default_joint_pos: -0.232
+  joint_pos_limits:
+  - -2.251
+  - 1.588
+  kp: 3.948
+  kd: 0.251
+  effort_limit: 10
+  frictionloss: 0.078
+- name: right_shoulder_yaw_joint
+  controlled: true
+  default_joint_pos: 1.004
+  joint_pos_limits:
+  - -2.618
+  - 2.618
+  kp: 2.763
+  kd: 0.176
+  effort_limit: 4
+  frictionloss: 0.016
+- name: right_elbow_joint
+  controlled: true
+  default_joint_pos: 1.2
+  joint_pos_limits:
+  - -0.87
+  - 1.57
+  kp: 2.763
+  kd: 0.176
+  effort_limit: 4
+  frictionloss: 0.006
+robot_init:
+  pos:
+  - 0
+  - 0
+  - 0.59
+  rot:
+  - 1
+  - 0
+  - 0
+  - 0
+observations:
+  actor:
+    history_length: 5
+    terms:
+      frame:
+        scale: 1
+        fields:
+          base_ang_vel:
+            scale: 0.2
+            dim: 3
+            slice:
+            - 0
+            - 3
+          projected_gravity:
+            scale: 1
+            dim: 3
+            slice:
+            - 3
+            - 6
+          command:
+            scale: 1
+            dim: 3
+            slice:
+            - 6
+            - 9
+          joint_pos:
+            scale: 1
+            dim: 20
+            slice:
+            - 9
+            - 29
+          joint_vel:
+            scale: 0.05
+            dim: 20
+            slice:
+            - 29
+            - 49
+          actions:
+            scale: 1
+            dim: 20
+            slice:
+            - 49
+            - 69
+    layout:
+    - name: frame
+      shape:
+      - 345
+      flatten_dim: 345
+      history_length: 5
+      scale: null
+      noise: null
+      params: {}
+      fields:
+      - name: base_ang_vel
+        slice:
+        - 0
+        - 3
+        dim: 3
+        scale: 0.2
+        noise:
+          type: uniform
+          n_min: -0.06
+          n_max: 0.06
+        note: torso body-frame ang vel; value stored as scale * omega_b
+      - name: projected_gravity
+        slice:
+        - 3
+        - 6
+        dim: 3
+        scale: 1
+        noise:
+          type: uniform
+          n_min: -0.05
+          n_max: 0.05
+        note: torso body-frame gravity direction
+      - name: command
+        slice:
+        - 6
+        - 9
+        dim: 3
+        scale: 1
+        noise: null
+        note: twist (vx, vy, wz)
+      - name: joint_pos
+        slice:
+        - 9
+        - 29
+        dim: 20
+        scale: 1
+        noise:
+          type: uniform
+          n_min: -0.02
+          n_max: 0.02
+        note: q - default_joint_pos
+      - name: joint_vel
+        slice:
+        - 29
+        - 49
+        dim: 20
+        scale: 0.05
+        noise:
+          type: uniform
+          n_min: -0.075
+          n_max: 0.075
+        note: value stored as scale * dq
+      - name: actions
+        slice:
+        - 49
+        - 69
+        dim: 20
+        scale: 1
+        noise: null
+        note: previous network action (before action_scale)
+      frame_dim: 69
+    concatenated_dim: 345
+    frame_dim: 69
+    obs_scales:
+      base_ang_vel: 0.2
+      projected_gravity: 1
+      command: 1
+      joint_pos: 1
+      joint_vel: 0.05
+      actions: 1
+  amp:
+    history_length: null
+    terms:
+      state:
+        scale: 1
+actions:
+  joint_pos:
+    scale:
+      .*_shoulder_pitch_joint: 0.633
+      .*_shoulder_roll_joint: 0.633
+      .*_shoulder_yaw_joint: 0.362
+      .*_elbow_joint: 0.362
+      .*_ankle_roll_joint: 0.565
+      .*_hip_yaw_joint: 0.458
+      .*_ankle_pitch_joint: 0.458
+      .*_hip_pitch_joint: 0.78
+      .*_hip_roll_joint: 0.78
+      .*_knee_joint: 0.78

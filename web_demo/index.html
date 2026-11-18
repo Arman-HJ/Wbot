@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WBOT WASM Play Demo</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #0b1220;
+        color: #e8eefc;
+      }
+      #app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      #viewport {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      #depthHud {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: min(336px, 42vw);
+        background: rgba(10, 16, 28, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        padding: 8px 10px;
+        backdrop-filter: blur(8px);
+        display: none;
+        z-index: 5;
+      }
+      #depthHud.visible {
+        display: block;
+      }
+      #depthHud .depth-title {
+        font-size: 11px;
+        color: #9db0d0;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      #depthPreview {
+        width: 100%;
+        height: auto;
+        image-rendering: pixelated;
+        border-radius: 6px;
+        background: #000;
+        display: block;
+        aspect-ratio: 168 / 80;
+      }
+      #hud {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: min(360px, calc(100vw - 24px));
+        background: rgba(10, 16, 28, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 12px 14px;
+        backdrop-filter: blur(8px);
+        max-height: calc(100vh - 24px);
+        overflow: auto;
+      }
+      #hud h1 {
+        margin: 0 0 8px;
+        font-size: 15px;
+        font-weight: 650;
+      }
+      #hud .hint {
+        font-size: 12px;
+        color: #9db0d0;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      button,
+      select {
+        background: #1a2740;
+        color: #e8eefc;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+      button:hover {
+        background: #243556;
+      }
+      label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        margin: 6px 0;
+      }
+      input[type="range"] {
+        width: 160px;
+      }
+      #status {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #8fe3a9;
+        white-space: pre-wrap;
+      }
+      #status.error {
+        color: #ff8f8f;
+      }
+      #panelRewards {
+        margin-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 8px;
+      }
+      #rewardBars {
+        max-height: calc(100vh - 240px);
+        overflow: auto;
+        margin-top: 4px;
+      }
+      .reward-empty {
+        padding: 0.4em;
+        color: #999;
+        font-size: 0.85em;
+      }
+      .reward-row {
+        display: flex;
+        align-items: center;
+        margin: 2px 0;
+        gap: 4px;
+      }
+      .reward-name {
+        min-width: 118px;
+        font-size: 0.72em;
+        text-align: right;
+        color: #ddd;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .reward-bar-track {
+        flex: 1;
+        background: #333;
+        border-radius: 3px;
+        height: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .reward-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+      }
+      .reward-val {
+        position: absolute;
+        right: 4px;
+        top: 0;
+        line-height: 16px;
+        font-size: 0.7em;
+        color: #eee;
+        text-shadow: 0 0 2px #000;
+      }
+      #rewardTotal {
+        font-size: 11px;
+        color: #9db0d0;
+        margin-top: 4px;
+      }
+      #panelJoints {
+        margin-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 8px;
+      }
+      .tab-bar {
+        display: flex;
+        gap: 4px;
+        margin: 8px 0 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 6px;
+      }
+      .tab-btn {
+        flex: 1;
+        background: transparent;
+        border: 1px solid transparent;
+        color: #9db0d0;
+        padding: 5px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .tab-btn.active {
+        background: #1a2740;
+        border-color: rgba(255, 255, 255, 0.14);
+        color: #e8eefc;
+      }
+      #tabJoints #jointTable {
+        max-height: calc(100vh - 220px);
+      }
+      #jointTable {
+        max-height: 380px;
+        overflow: auto;
+        margin-top: 4px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .joint-block {
+        padding: 4px 0 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 11px;
+        line-height: 1.35;
+      }
+      .joint-block.joint-head {
+        color: #9db0d0;
+        padding-bottom: 4px;
+        margin-bottom: 2px;
+      }
+      .joint-block-title {
+        color: #d5e0f5;
+        font-weight: 600;
+        margin-bottom: 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .joint-head .joint-block-title {
+        font-weight: 500;
+        color: #9db0d0;
+      }
+      .joint-metric-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .joint-metric {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 6px;
+        align-items: center;
+      }
+      .joint-metric-lab {
+        color: #9db0d0;
+        font-size: 10px;
+        text-align: right;
+      }
+      .joint-head-cell {
+        text-align: center;
+        font-size: 10px;
+      }
+      .jbar-track {
+        position: relative;
+        height: 11px;
+        background: #2a2f3a;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .jbar-fill {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .jbar-q {
+        background: rgba(110, 160, 255, 0.35);
+      }
+      .jbar-tgt {
+        background: rgba(126, 224, 154, 0.35);
+      }
+      .jbar-mark {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        margin-left: -1px;
+      }
+      .jbar-mark-q {
+        background: #6ea0ff;
+        width: 3px;
+        margin-left: -1.5px;
+      }
+      .jbar-mark-tgt {
+        background: #7ee09a;
+      }
+      .jbar-mark-def {
+        background: rgba(255, 255, 255, 0.45);
+        width: 1px;
+        margin-left: -0.5px;
+        transition: none;
+      }
+      .jbar-center {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .jbar-val {
+        position: absolute;
+        right: 3px;
+        top: 0;
+        line-height: 11px;
+        font-size: 9px;
+        color: #eee;
+        text-shadow: 0 0 2px #000;
+        font-variant-numeric: tabular-nums;
+      }
+      #jointSum {
+        font-size: 11px;
+        color: #9db0d0;
+        margin-top: 4px;
+      }
+      .imu-panel { display: flex; flex-direction: column; gap: 8px; }
+      .imu-head { display: flex; gap: 10px; align-items: center; }
+      .imu-attitude {
+        width: 88px; height: 88px; border-radius: 10px;
+        background: #0f1728; border: 1px solid rgba(255,255,255,0.12); flex: 0 0 auto;
+      }
+      .imu-tip { flex: 1; line-height: 1.35; }
+      .imu-group-title { font-size: 11px; color: #9db0d0; margin-bottom: 4px; }
+      .imu-row {
+        display: grid; grid-template-columns: 14px 1fr 52px; gap: 6px;
+        align-items: center; margin: 3px 0;
+      }
+      .imu-axis { font-size: 11px; color: #8ea0bd; text-transform: uppercase; }
+      .imu-track {
+        position: relative; height: 8px; border-radius: 999px;
+        background: rgba(255,255,255,0.08); overflow: hidden;
+      }
+      .imu-zero {
+        position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+        background: rgba(255,255,255,0.28);
+      }
+      .imu-fill { position: absolute; top: 0; bottom: 0; border-radius: 999px; }
+      .imu-val {
+        font-size: 11px; font-variant-numeric: tabular-nums;
+        text-align: right; color: #d7e3f7;
+      }
+      .imu-pitch-val { font-size: 13px; font-weight: 650; color: #9ecbff; }
+      #panelPad {
+        margin-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 8px;
+      }
+      #padEnable.on {
+        background: #126f58;
+      }
+      #padStop {
+        background: #823f48;
+      }
+      .pads {
+        display: flex;
+        justify-content: space-around;
+        gap: 12px;
+        margin: 8px 0;
+      }
+      .pad {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1px solid #65728b;
+        background: radial-gradient(circle, #314257, #202c3e);
+        position: relative;
+        touch-action: none;
+        user-select: none;
+      }
+      .pad::after {
+        content: "+";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #7790ac;
+        font-size: 24px;
+      }
+      .pad .knob {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        left: calc(50% - 16px);
+        top: calc(50% - 16px);
+        border-radius: 50%;
+        background: #67b9ee;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .pad-label {
+        text-align: center;
+        font-size: 11px;
+        color: #9db0d0;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="viewport"></canvas>
+      <div id="depthHud" aria-label="head depth preview">
+        <div class="depth-title">
+          <span>Head depth (policy input)</span>
+          <span id="depthMeta">80×168</span>
+        </div>
+        <canvas id="depthPreview" width="168" height="80"></canvas>
+      </div>
+      <aside id="hud">
+        <h1>WBOT WASM Play</h1>
+        <div class="hint">
+          本地 MuJoCo WASM + ONNX。交互按 Viser：任务不同 → 面板不同（勿混任务）。Ctrl+拖拽外力。
+        </div>
+        <label>
+          Pack
+          <select id="packSelect"></select>
+        </label>
+        <label>
+          Checkpoint
+          <select id="ckptSelect"></select>
+        </label>
+        <div id="profileBadge" class="hint"></div>
+        <div class="row">
+          <button id="btnPlayPause">Pause</button>
+          <button id="btnReset">Reset</button>
+        </div>
+        <label>
+          Speed
+          <select id="speedSelect">
+            <option value="0.25">0.25x</option>
+            <option value="0.5">0.5x</option>
+            <option value="1" selected>1x</option>
+            <option value="2">2x</option>
+          </select>
+        </label>
+
+        <div class="tab-bar" role="tablist">
+          <button id="tabBtnControl" class="tab-btn active" type="button" role="tab">控制</button>
+          <button id="tabBtnJoints" class="tab-btn" type="button" role="tab">关节</button>
+          <button id="tabBtnImu" class="tab-btn" type="button" role="tab">IMU</button>
+          <button id="tabBtnRewards" class="tab-btn" type="button" role="tab">奖励</button>
+        </div>
+
+        <div id="tabControl" role="tabpanel">
+        <!-- Viser UniformVelocityCommand GUI (amp_twist / velocity) -->
+        <div id="panelTwist" hidden>
+          <div class="hint">Commands / twist（Viser Enable 默认关；W/S/A/D/Q/E 调整）</div>
+          <label>
+            <span>Enable</span>
+            <input id="cmdEnable" type="checkbox" />
+          </label>
+          <label>
+            lin_vel_x <span id="cmdVxRange" class="hint"></span>
+            <input id="cmdVx" type="range" min="-1.5" max="1.5" step="0.05" value="0" />
+          </label>
+          <label>
+            lin_vel_y
+            <input id="cmdVy" type="range" min="-0.8" max="0.8" step="0.05" value="0" />
+          </label>
+          <label>
+            ang_vel_z
+            <input id="cmdWz" type="range" min="-1.5" max="1.5" step="0.05" value="0" />
+          </label>
+          <div class="row">
+            <button id="btnZero" type="button">Zero</button>
+          </div>
+          <div id="cmdReadout" class="hint" style="white-space: pre"></div>
+
+          <div id="panelPad">
+            <div class="hint">手柄 / 网页摇杆（启用后接管速度，松开归零）</div>
+            <label>
+              输入
+              <select id="padSource">
+                <option value="virtual">网页摇杆（鼠标 / 触屏）</option>
+                <option value="physical">USB / 蓝牙手柄</option>
+              </select>
+            </label>
+            <label>
+              最大速度比例
+              <input id="padGain" type="range" min="0.1" max="1" step="0.05" value="1" />
+            </label>
+            <div class="row">
+              <button id="padEnable" type="button">启用手柄</button>
+              <button id="padStop" type="button">停止 / X</button>
+            </div>
+            <div class="pads">
+              <div>
+                <div id="padLeft" class="pad"><div class="knob"></div></div>
+                <div class="pad-label">左摇杆：前后 / 横移</div>
+              </div>
+              <div>
+                <div id="padRight" class="pad"><div class="knob"></div></div>
+                <div class="pad-label">右摇杆：转向</div>
+              </div>
+            </div>
+            <div id="padStatus" class="hint"></div>
+            <div class="hint">
+              实体手柄（标准 Xbox / PS 映射）：A 启用/关闭 · X 停止 · Y Reset · Start 暂停/继续。
+              需在 localhost / HTTPS 下打开，连接后先按一下任意键。
+            </div>
+          </div>
+        </div>
+
+        <!-- KickViserPlayViewer: motion clip + push -->
+        <div id="panelKick" hidden>
+          <div class="hint">Motion Clip（Viser Play Clip）</div>
+          <div class="row">
+            <button id="btnPlayClip" type="button">Play Clip</button>
+            <button id="btnBlendInit" type="button" title="暂停策略，关节 PD 目标平滑插值到初始姿态">插值到初始位</button>
+          </div>
+          <label>
+            插值时长 (s)
+            <input id="blendDur" type="range" min="0.3" max="5" step="0.1" value="2" />
+          </label>
+          <label>
+            Hold Frame
+            <input id="holdFrame" type="number" min="0" max="0" step="1" value="0" />
+            <span id="holdFrameVal">/ 0</span>
+          </label>
+          <div id="clipStatus" class="hint">Holding frame 0</div>
+          <label>
+            <span>Show motion</span>
+            <input id="showMotion" type="checkbox" checked />
+          </label>
+          <label>
+            Vis mode
+            <select id="motionVisMode">
+              <option value="ghost" selected>ghost</option>
+              <option value="frames">frames</option>
+            </select>
+          </label>
+          <div class="hint">推力</div>
+          <label>
+            方向
+            <select id="pushDir">
+              <option value="向后" selected>向后</option>
+              <option value="向前">向前</option>
+              <option value="向左">向左</option>
+              <option value="向右">向右</option>
+              <option value="向下">向下</option>
+            </select>
+          </label>
+          <label>
+            推力 (N)
+            <input id="pushForce" type="range" min="0" max="300" step="5" value="60" />
+          </label>
+          <label>
+            持续时间 (s)
+            <input id="pushDur" type="range" min="0.02" max="1" step="0.02" value="0.2" />
+          </label>
+          <div class="row">
+            <button id="btnPush" type="button">Push</button>
+            <button id="btnCancelPush" type="button">取消</button>
+          </div>
+          <div id="pushStatus" class="hint">尚未施力</div>
+        </div>
+
+        <label>
+          Drag gain
+          <input id="dragGain" type="range" min="0.2" max="5" step="0.1" value="1" />
+        </label>
+        </div>
+
+        <div id="tabJoints" role="tabpanel" hidden>
+          <div class="hint">
+            按关节：tgt（绿）→ q（蓝）→ τ；灰线=默认站姿；右侧为绝对数值
+          </div>
+          <div id="jointTable"></div>
+          <div id="jointSum">Σ|τ| ≈ —</div>
+        </div>
+
+        <div id="tabImu" role="tabpanel" hidden>
+          <div class="hint">pelvis IMU：gyro / accel / 投影重力（与 obs 同源）</div>
+          <div id="imuPanel"></div>
+        </div>
+
+        <div id="tabRewards" role="tabpanel" hidden>
+          <div id="panelRewards">
+            <div class="hint">各项 w×raw，~1s 滑动均值（不乘 dt）；悬停看 raw</div>
+            <div id="rewardBars"></div>
+            <div id="rewardTotal">Σ ≈ —</div>
+          </div>
+        </div>
+
+        <div id="status">Loading…</div>
+      </aside>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

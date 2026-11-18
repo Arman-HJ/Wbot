@@ -1,0 +1,12 @@
+motions:
+# Train / local: /home/songhat/code_workspace/rl/unitree_rl_mjlab/src/assets/amp_motions/pnd_adam_sp/feet_gait_0715
+  - file: "walk_forward_fast_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "walk_forward_medium_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "walk_forward_slow_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "walk_left_pnd_adam_sp.npz"
+    weight: 1.0
+  - file: "walk_right_pnd_adam_sp.npz"
+    weight: 1.0

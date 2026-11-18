@@ -1,0 +1,19 @@
+# Full DAVIS shooting train (football_jax-scale envs + AMP).
+# Launch: bash scripts/train_davis_shoot_wbot_20dof.sh
+
+task_id: Davis-Shoot-Wbot-20DOF
+num_envs: 4096  # football_jax configs/wbot20dof.yaml
+episode_length_s: 20.0
+max_iterations: 20000  # paper
+physics_dt: 0.005
+decimation: 4  # 50 Hz policy, 200 Hz PD
+depth_hz_target: 15
+enable_amp: true
+amp_reward_coefficient: 0.8  # paper Table X
+amp_motions: src/assets/amp_motions/wbot_20dof/soccer_standard  # from HumanoidSoccer
+anneal:
+  # 论文未给出数值；与 DavisActorModelCfg 默认一致
+  k0: 1000
+  k1: 8000
+  ema_threshold: 0.5
+camera_config: configs/davis/camera_zed2i.yaml

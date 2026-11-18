@@ -1,0 +1,38 @@
+# WBOT 20DoF walk/run/turn/side/stand AMP clips (used by AMP-Walk-Run-Wbot-20DOF).
+# Preview videos: video/<stem>.mp4
+# walk_straight_* = mid-speed straight cuts from walk_moving, yaw-drift removed
+# by scripts/export_straight_walk_clips.py. Turning frames are not labeled walk.
+motions:
+  - file: walk_straight_a.npz
+    label: walk
+    weight: 0.5
+  - file: walk_straight_a_mirror.npz
+    label: walk
+    weight: 0.5
+  - file: walk_straight_b.npz
+    label: walk
+    weight: 0.5
+  - file: walk_straight_b_mirror.npz
+    label: walk
+    weight: 0.5
+  - file: run.npz
+    label: run
+    weight: 1.0
+  - file: run_mirror.npz
+    label: run
+    weight: 1.0
+  - file: turn_l.npz
+    label: turn
+    weight: 1.0
+  - file: turn_r.npz
+    label: turn
+    weight: 1.0
+  - file: side_l.npz
+    label: side
+    weight: 1.0
+  - file: side_r.npz
+    label: side
+    weight: 1.0
+  - file: stand.npz
+    label: stand
+    weight: 1.0

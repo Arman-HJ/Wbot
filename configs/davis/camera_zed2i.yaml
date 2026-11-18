@@ -1,0 +1,43 @@
+# ZED2i head camera for DAVIS on wbot+neck (project page #app-sim2real).
+#
+# Paper / site: calibrated ZED2i distance-to-image-plane depth at 168×94,
+# cropped to 168×80, clipped 0.3–5.0 m, normalized 2D/5−1, invalid→0.
+# StereoLabs ZED2i rectified FOV is approximately 92° H × 60° V.
+
+camera:
+  model: "StereoLabs ZED2i"
+  parent_body: "head_camera_link"  # after 2-DoF neck graft
+  pos_xyz_m: [0.06, 0.0, 0.04]
+  # MuJoCo cam looks -Z; quat makes optical axis = head +X.
+  quat_wxyz: [0.5, 0.5, -0.5, -0.5]
+  depth_fov_deg_hv: [92.0, 60.0]
+  fovy_deg: 60.0
+  render_resolution_wh: [168, 94]
+  policy_crop_wh: [168, 80]
+  depth_range_m: [0.3, 5.0]
+  normalize: "2D/5.0 - 1"
+  invalid_fill: 0.0
+  stream_hz: 15
+
+  # Neck DoFs (wbot graft; paper E1 native head).
+  neck:
+    yaw_joint: neck_yaw_joint
+    pitch_joint: neck_pitch_joint
+    yaw_range_rad: [-1.57, 1.57]
+    pitch_range_rad: [-0.90, 0.60]
+    home_pitch_rad: 0.35  # mild look-down at reset
+
+  # Nominal intrinsics from FOV (replace with onboard calib before real deploy).
+  intrinsics_nominal:
+    sim_render_168x94:
+      width: 168
+      height: 94
+      fx: 84.0   # approx (84 / tan(46°)) for 92° H
+      fy: 81.5   # approx (47 / tan(30°)) for 60° V
+      cx: 84.0
+      cy: 47.0
+
+  # Real wbot may still use D455 — keep FOV/extrinsics swap here, not in policy graph.
+  real_robot_note: >
+    If the physical robot mounts D455 instead of ZED2i, re-match fovy / crop and
+    extrinsics; keep the same 168×80 / 0.3–5 m / 2D/5−1 actor interface.
